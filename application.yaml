@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/ingv-oe-dev/tsdsystem-k8s.git
     targetRevision: main
-    path: deployment/app
+    path: manifests/app
   destination:
     server: https://kubernetes.default.svc
     namespace: tsdsystem
