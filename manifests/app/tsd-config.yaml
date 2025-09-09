@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tsd-data
+  namespace: tsdsystem
+data:
+  DB_HOST: "tsdsystem-db-0.tsdsystem-db-svc"
+  DB_USER: "postgres"
+  DB_PASSWORD: "tsdsystem"
+  DB_NAME: "tsdsystem"
+  DB_PORT: "5432"
+  TSD_DB: "tsdsystem"
+  TSD_DB_USER: "sismodev"
+  TSD_DB_PASSWORD: "development"
+  SERVER_KEY: "specialserversecretkey"
+  APP_ALLOWED_HOSTS: "*"
+  ADMIN_ID: "-10"
+  ADMIN_PASSWORD: "adminpasswd"
+  ADMIN_EMAIL: "admin@example.com"
+  PGADMIN_DEFAULT_EMAIL: "pgadmin@pgadmin.com"
+  PGADMIN_DEFAULT_PASSWORD: "pgpassword"
+  ENV: ""
+  EPSG_DEGREE: ""
+  EPSG_M: ""
+  SMTP_HOST: ""
+  SMTP_USERNAME: ""
+  SMTP_PASSWORD: ""
+  SMTP_AUTH: ""
+  SMTP_SECURE: ""
+  SMTP_FROM_ADDRESS: ""
+  SMTP_FROM_NAME: ""
+  REG_PATTERN: ""
