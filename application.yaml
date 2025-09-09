@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/ingv-oe-dev/tsdsystem-k8s.git
+    repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
     targetRevision: main
     path: manifests/app
   destination:
