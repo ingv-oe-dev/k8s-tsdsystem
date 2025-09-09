@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tsdsystem-db-svc
+  namespace: tsdsystem
+  labels:
+    app: db
+spec:
+  ports:
+    - port: 5432
+      name: db
+  selector:
+    app: db
+    tier: backend
+  clusterIP: None

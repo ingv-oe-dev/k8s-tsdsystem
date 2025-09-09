@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tsdsystem-db
+  namespace: tsdsystem
+  labels:
+    app: db
+spec:
+  serviceName: tsdsystem-db-svc
+  selector:
+    matchLabels:
+      app: db
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: db
+        tier: backend
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: tsd-db
+          image: timescale/timescaledb-ha:pg14.2-ts2.6.0-oss-latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tsd-secret
+                  key: password
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tsd-secret
+                  key: password
+            - name: POSTGRES_DB
+              value: tsdsystem
+          envFrom:
+            - configMapRef:
+                name: tsd-data
+          livenessProbe:
+            exec:
+              command:
+                [
+                  "/bin/bash",
+                  "-c",
+                  "psql -U ${DB_USER} -d ${DB_NAME} -c 'SELECT 1;'",
+                ]
+            initialDelaySeconds: 45
+            periodSeconds: 15
+          readinessProbe:
+            exec:
+              command:
+                [
+                  "/bin/bash",
+                  "-c",
+                  "psql -U ${DB_USER} -d ${DB_NAME} -c 'SELECT 1;'",
+                ]
+            initialDelaySeconds: 30
+            timeoutSeconds: 2
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  [
+                    "/bin/bash",
+                    "-c",
+                    "sleep 5 && DB_HOST=localhost /bin/sh /sql_create/initdb.sh > /tmp/exec.log 2>&1",
+                  ]
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: db-data
+              mountPath: /home/postgres/pgdata/data
+            - name: db-script
+              mountPath: /sql_create
+      initContainers:
+        - name: change-ownership-container
+          image: registry.192.168.131.9.nip.io/tsdsystem-db-init
+          command:
+            - "/bin/sh"
+            - "-c"
+            - |
+              cp -pvr /opt/* /sql_create/
+              chown -R 1000:1000 /home/postgres/pgdata/data
+          securityContext:
+            runAsUser: 0
+            privileged: true
+          volumeMounts:
+            - name: db-data
+              mountPath: /home/postgres/pgdata/data
+            - name: db-script
+              mountPath: /sql_create
+  volumeClaimTemplates:
+    - metadata:
+        name: db-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 10Gi
+    - metadata:
+        name: db-script
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 1Mi
