@@ -6,10 +6,13 @@ metadata:
 spec:
   project: default
 
-  source:
-    repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
+  sources:
+  - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
     targetRevision: main
-    path: manifests
+    path: manifests/db
+  - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
+    targetRevision: main
+    path: manifests/app
   destination:
     server: https://kubernetes.default.svc
     namespace: tsdsystem
