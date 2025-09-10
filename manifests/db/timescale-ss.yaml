@@ -74,7 +74,7 @@ spec:
             - containerPort: 5432
           volumeMounts:
             - name: db-data
-              mountPath: /home/postgres/pgdata/data
+              mountPath: /home/postgres/pgdata
             - name: db-script
               mountPath: /sql_create
       initContainers:
