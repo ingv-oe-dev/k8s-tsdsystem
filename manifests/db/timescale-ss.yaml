@@ -99,7 +99,7 @@ spec:
         name: db-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: standard
+        storageClassName: longhorn
         resources:
           requests:
             storage: 10Gi
@@ -107,7 +107,7 @@ spec:
         name: db-script
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: standard
+        storageClassName: longhorn
         resources:
           requests:
             storage: 1Mi
