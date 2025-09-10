@@ -5,7 +5,7 @@ metadata:
   namespace: tsdsystem
 spec:
   rules:
-    - host: tsdsystem.ct.int.ingv.it
+    - host: tsdsystem.10.201.2.221.nip.io
       http:
         paths:
           - path: /tsdws
