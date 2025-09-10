@@ -5,7 +5,7 @@ metadata:
   namespace: tsdsystem
 spec:
   rules:
-    - host: tsd-replica.ct.int.ingv.it
+    - host: tsdsystem.ct.int.ingv.it
       http:
         paths:
           - path: /tsdws
