@@ -79,7 +79,7 @@ spec:
               mountPath: /sql_create
       initContainers:
         - name: change-ownership-container
-          image: registry.192.168.131.9.nip.io/tsdsystem-db-init
+          image: registry.10.201.2.221.nip.io/tsdsystem-init-db:0.0.2
           command:
             - "/bin/sh"
             - "-c"
