@@ -80,6 +80,7 @@ spec:
       initContainers:
         - name: change-ownership-container
           image: registry.10.201.2.221.nip.io/tsdsystem-init-db:0.0.2
+          imagePullPolicy: IfNotPresent
           command:
             - "/bin/sh"
             - "-c"
