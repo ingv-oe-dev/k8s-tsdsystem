@@ -36,8 +36,6 @@ spec:
                 secretKeyRef:
                   name: tsd-secret
                   key: password
-            - name: POSTGRES_DB
-              value: tsdsystem
           envFrom:
             - configMapRef:
                 name: tsd-data
