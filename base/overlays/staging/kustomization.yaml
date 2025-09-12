@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../app
+
+namePrefix: staging-
+
+namespace: tsdsystem-staging
+
+commonLabels:
+  app: tsd-staging
+
+patches:
+  - path: tsd-deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: tsdsystem-app
+
+generatorOptions:
+  labels:
+    app: tsd-staging
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: tsd-data
+  behavior: replace
+  envs:
+  - .env
+
+secretGenerator:
+- name: tsd-secret
+  behavior: replace
+  envs:
+  - .env.secret
