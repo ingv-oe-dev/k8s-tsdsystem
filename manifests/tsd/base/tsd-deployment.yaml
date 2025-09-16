@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: tsd-app
-          image: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-app:v1.4a
+          image: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-app:v1.5a
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
@@ -28,7 +28,7 @@ spec:
               protocol: TCP
           readinessProbe:
             httpGet:
-              path: /misc/ping
+              path: /tsdws/version
               port: http
             initialDelaySeconds: 10
             periodSeconds: 5
@@ -36,7 +36,7 @@ spec:
             failureThreshold: 3
           livenessProbe:
             httpGet:
-              path: /misc/ping
+              path: /tsdws/version
               port: http
             initialDelaySeconds: 30
             periodSeconds: 15

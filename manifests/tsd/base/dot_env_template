@@ -1,5 +1,4 @@
 DB_HOST=
 DB_PORT=
-TSD_DB=
 APP_ALLOWED_HOSTS=*
 ENV=production
