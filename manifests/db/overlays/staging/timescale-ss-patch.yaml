@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tsdsystem-db
+  labels:
+    app: db
+spec:
+  template:
+    spec:
+      containers:
+        - name: tsd-db
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "250m"
+              memory: "512Mi"

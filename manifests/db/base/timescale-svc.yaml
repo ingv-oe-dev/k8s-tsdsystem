@@ -2,14 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tsdsystem-db-svc
-  namespace: tsdsystem
   labels:
     app: db
 spec:
   ports:
-    - port: 5432
-      name: db
+    - name: db
+      port: 5432
+      targetPort: postgres
   selector:
     app: db
-    tier: backend
   clusterIP: None
