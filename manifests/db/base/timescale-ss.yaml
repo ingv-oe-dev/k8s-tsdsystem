@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tsdsystem-db
+  labels:
+    app: db
+spec:
+  serviceName: tsdsystem-db-svc
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "Always"
+      containers:
+        - name: tsd-db
+          image: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-db:v1.5a
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: tsd-db-data
+            - secretRef:
+                name: tsd-db-secret
+          livenessProbe:
+            exec:
+              command:
+                [
+                  "/bin/bash",
+                  "-c",
+                  "pg_isready -h localhost -U ${POSTGRES_USER}"
+                ] 
+            initialDelaySeconds: 45
+            periodSeconds: 15
+          readinessProbe:
+            exec:
+              command:
+                [
+                  "/bin/bash",
+                  "-c",
+                  "pg_isready -h localhost -U ${POSTGRES_USER}"
+                ] 
+            initialDelaySeconds: 30
+            timeoutSeconds: 2
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - name: db-data
+              mountPath: /home/postgres/pgdata
+  volumeClaimTemplates:
+    - metadata:
+        name: db-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: longhorn
+        resources:
+          requests:
+            storage: 10Gi

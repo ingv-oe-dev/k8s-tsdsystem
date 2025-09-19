@@ -2,7 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: tsd-ingress
-  namespace: tsdsystem
+  # namespace: tsdsystem
+  labels:
+    app: tsd
 spec:
   rules:
     - host: tsdsystem.10.201.2.221.nip.io

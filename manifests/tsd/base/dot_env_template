@@ -1,0 +1,4 @@
+DB_HOST=
+DB_PORT=
+APP_ALLOWED_HOSTS=*
+ENV=production
