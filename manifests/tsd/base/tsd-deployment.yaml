@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: tsd-app
-          image: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-app:v1.5a
+          image: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-app:v1.7a
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
