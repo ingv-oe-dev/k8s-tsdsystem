@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - tsd-deployment.yaml
   - tsd-svc.yaml
+  - tsd-ingress.yaml
 
 namespace: tsdsystem-base
 

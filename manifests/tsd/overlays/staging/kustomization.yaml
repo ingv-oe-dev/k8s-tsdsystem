@@ -16,6 +16,10 @@ patches:
     target:
       kind: Deployment
       name: tsdsystem-app
+  - path: tsd-ingress-patch.yaml
+    target:
+      kind: Ingress
+      name: tsd-ingress
 
 generatorOptions:
   labels:
