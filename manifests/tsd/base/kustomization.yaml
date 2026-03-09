@@ -18,7 +18,10 @@ configMapGenerator:
 - name: tsd-data
   behavior: create
   envs:
-  - .env
+    - .env
+- name: apache-custom-log
+  files:
+    - custom-log.conf
 
 secretGenerator:
 - name: tsd-secret
