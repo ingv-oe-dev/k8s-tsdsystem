@@ -4,18 +4,20 @@ kind: Kustomization
 resources:
   - ../../base
 
-namePrefix: staging-
-
-namespace: tsdsystem-staging
+namespace: tsdsystem
 
 commonLabels:
-  app: db-staging
+  app: db
 
 patches:
   - path: timescale-ss-patch.yaml
     target:
       kind: StatefulSet
       name: tsdsystem-db
+
+images:
+  - name: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-db
+    newTag: v1.5a
 
 generatorOptions:
   labels:

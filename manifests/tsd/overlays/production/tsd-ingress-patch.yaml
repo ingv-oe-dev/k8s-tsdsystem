@@ -1,0 +1,4 @@
+# manifests/tsd/overlays/staging/tsd-ingress-patch.yaml
+- op: replace
+  path: /spec/rules/0/host
+  value: tsdsystem.host.domain
