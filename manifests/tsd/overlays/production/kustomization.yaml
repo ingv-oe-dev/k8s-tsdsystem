@@ -4,27 +4,29 @@ kind: Kustomization
 resources:
   - ../../base
 
-namePrefix: production-
 
-namespace: tsdsystem-production
+namespace: tsdsystem
 
 commonLabels:
-  app: tsd-production
+  app: tsd
 
 patches:
   - path: tsd-deployment-patch.yaml
     target:
       kind: Deployment
       name: tsdsystem-app
+  - path: tsd-ingress-patch.yaml
+    target:
+      kind: Ingress
+      name: tsd-ingress
 
-# Eg: to change the image tag in production
-# images:
-# - name: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-app
-#   newTag: v1.4.0-stable
+images:
+  - name: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-app
+    newTag: v1.7a
 
 generatorOptions:
   labels:
-    app: tsd-production
+    app: tsd
   disableNameSuffixHash: true
 
 configMapGenerator:
