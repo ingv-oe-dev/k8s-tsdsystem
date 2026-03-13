@@ -27,5 +27,4 @@ configMapGenerator:
 secretGenerator:
 - name: tsd-secret
   behavior: create
-  envs:
-  - .env.secret
+  type: Opaque
