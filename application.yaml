@@ -8,11 +8,11 @@ spec:
 
   sources:
   - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
-    targetRevision: main
-    path: manifests/db
+    targetRevision: sealed-secret
+    path: manifests/db/overlays/production
   - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
-    targetRevision: main
-    path: manifests/app
+    targetRevision: sealed-secret
+    path: manifests/tsd/overlays/production
   destination:
     server: https://kubernetes.default.svc
     namespace: tsdsystem
@@ -20,7 +20,8 @@ spec:
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
-
+    - PrunePropagationPolicy=foreground
+    - PruneLast=true
     automated:
       selfHeal: true
       prune: true

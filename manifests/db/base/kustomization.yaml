@@ -14,15 +14,9 @@ commonLabels:
 generatorOptions:
   labels:
     app: db-base
-
-configMapGenerator:
-- name: tsd-db-data
-  behavior: create
-  envs:
-  - .env
+  disableNameSuffixHash: true
 
 secretGenerator:
 - name: tsd-db-secret
   behavior: create
-  envs:
-  - .env.secret
+  type: Opaque

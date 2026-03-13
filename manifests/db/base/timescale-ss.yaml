@@ -24,8 +24,6 @@ spec:
           image: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-db
           imagePullPolicy: IfNotPresent
           envFrom:
-            - configMapRef:
-                name: tsd-db-data
             - secretRef:
                 name: tsd-db-secret
           startupProbe:
@@ -40,7 +38,7 @@ spec:
                   "/bin/bash",
                   "-c",
                   "pg_isready -h localhost -U ${POSTGRES_USER}"
-                ] 
+                ]
             initialDelaySeconds: 45
             periodSeconds: 15
           readinessProbe:
@@ -50,7 +48,7 @@ spec:
                   "/bin/bash",
                   "-c",
                   "pg_isready -h localhost -U ${POSTGRES_USER}"
-                ] 
+                ]
             initialDelaySeconds: 30
             timeoutSeconds: 2
           ports:
@@ -65,7 +63,6 @@ spec:
         name: db-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        # storageClassName: standard
         resources:
           requests:
             storage: 10Gi

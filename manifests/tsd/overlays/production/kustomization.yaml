@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - ../../base
-
+  - sealed-secret.yaml
 
 namespace: tsdsystem
 
@@ -25,18 +25,30 @@ images:
     newTag: v1.7a
 
 generatorOptions:
+  annotations:
+    sealedsecrets.bitnami.com/managed: "true"
   labels:
     app: tsd
   disableNameSuffixHash: true
 
+configurations:
+  - sealed-secret-config.yaml
+
 configMapGenerator:
 - name: tsd-data
-  behavior: replace
-  envs:
-  - .env
+  namespace: tsdsystem
+  behavior: create
+  literals:
+    - DB_HOST=tsdsystem-db-svc
+    - DB_PORT=5432
+    - APP_ALLOWED_HOSTS=*
+    - ENV=production
+
 
 secretGenerator:
 - name: tsd-secret
+  type: Opaque
+  options:
+    annotations:
+      config.kubernetes.io/local-config: "true"
   behavior: replace
-  envs:
-  - .env.secret

@@ -16,10 +16,6 @@ generatorOptions:
     app: tsd-base
 
 configMapGenerator:
-- name: tsd-data
-  behavior: create
-  envs:
-    - .env
 - name: apache-custom-log
   files:
     - custom-log.conf
@@ -27,5 +23,4 @@ configMapGenerator:
 secretGenerator:
 - name: tsd-secret
   behavior: create
-  envs:
-  - .env.secret
+  type: Opaque

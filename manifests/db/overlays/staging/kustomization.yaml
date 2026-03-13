@@ -3,8 +3,7 @@ kind: Kustomization
 
 resources:
   - ../../base
-
-namePrefix: staging-
+  - sealed-secret.yaml
 
 namespace: tsdsystem-staging
 
@@ -22,18 +21,19 @@ images:
     newTag: v1.5a
 
 generatorOptions:
+  annotations:
+    sealedsecrets.bitnami.com/managed: "true"
   labels:
-    app: db-base
+    app: db-staging
   disableNameSuffixHash: true
 
-configMapGenerator:
-- name: tsd-db-data
-  behavior: replace
-  envs:
-  - .env
+configurations:
+  - sealed-secret-config.yaml
 
 secretGenerator:
 - name: tsd-db-secret
+  type: Opaque
+  options:
+      annotations:
+        config.kubernetes.io/local-config: "true"
   behavior: replace
-  envs:
-  - .env.secret
