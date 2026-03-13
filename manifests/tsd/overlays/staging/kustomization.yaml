@@ -32,9 +32,13 @@ generatorOptions:
 
 configMapGenerator:
 - name: tsd-data
+  namespace: tsdsystem-staging
   behavior: replace
-  envs:
-  - .env
+  literals:
+    - DB_HOST=staging-tsdsystem-db-svc
+    - DB_PORT=5432
+    - APP_ALLOWED_HOSTS=*
+    - ENV=production
 
 secretGenerator:
 - name: tsd-secret

@@ -36,9 +36,14 @@ configurations:
 
 configMapGenerator:
 - name: tsd-data
-  behavior: replace
-  envs:
-  - .env
+  namespace: tsdsystem
+  behavior: create
+  literals:
+    - DB_HOST=tsdsystem-db-svc
+    - DB_PORT=5432
+    - APP_ALLOWED_HOSTS=*
+    - ENV=production
+
 
 secretGenerator:
 - name: tsd-secret

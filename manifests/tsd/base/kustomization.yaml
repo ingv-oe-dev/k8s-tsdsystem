@@ -16,10 +16,6 @@ generatorOptions:
     app: tsd-base
 
 configMapGenerator:
-- name: tsd-data
-  behavior: create
-  envs:
-    - .env
 - name: apache-custom-log
   files:
     - custom-log.conf
