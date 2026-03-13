@@ -3,13 +3,12 @@ kind: Kustomization
 
 resources:
   - ../../base
+  - sealed-secret.yaml
 
-namePrefix: staging-
-
-namespace: tsdsystem-staging
+namespace: tsdsystem
 
 commonLabels:
-  app: db-staging
+  app: db
 
 patches:
   - path: timescale-ss-patch.yaml
@@ -17,19 +16,24 @@ patches:
       kind: StatefulSet
       name: tsdsystem-db
 
+images:
+  - name: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-db
+    newTag: v1.5a
+
 generatorOptions:
+  annotations:
+    sealedsecrets.bitnami.com/managed: "true"
   labels:
-    app: db-base
+    app: db
   disableNameSuffixHash: true
 
-configMapGenerator:
-- name: tsd-db-data
-  behavior: replace
-  envs:
-  - .env
+configurations:
+  - sealed-secret-config.yaml
 
 secretGenerator:
 - name: tsd-db-secret
+  type: Opaque
+  options:
+      annotations:
+        config.kubernetes.io/local-config: "true"
   behavior: replace
-  envs:
-  - .env.secret
