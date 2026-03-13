@@ -17,6 +17,10 @@ patches:
       kind: StatefulSet
       name: tsdsystem-db
 
+images:
+  - name: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-db
+    newTag: v1.5a
+
 generatorOptions:
   labels:
     app: db-base

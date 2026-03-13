@@ -21,6 +21,10 @@ patches:
       kind: Ingress
       name: tsd-ingress
 
+images:
+  - name: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-app
+    newTag: v1.7a
+
 generatorOptions:
   labels:
     app: tsd-staging

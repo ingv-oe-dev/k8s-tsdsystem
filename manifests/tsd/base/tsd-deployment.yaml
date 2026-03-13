@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: tsd-app
-          image: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-app:v1.7a
+          image: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-app
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
@@ -30,6 +30,12 @@ spec:
             - name: log-config-volume
               mountPath: /etc/apache2/conf-enabled/custom-log.conf
               subPath: custom-log.conf
+          startupProbe:
+            httpGet:
+              path: /tsdws/version
+              port: http
+            failureThreshold: 12
+            periodSeconds: 5
           readinessProbe:
             httpGet:
               path: /tsdws/version

@@ -18,16 +18,21 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
-        fsGroupChangePolicy: "Always"
+        fsGroupChangePolicy: "OnRootMismatch"
       containers:
         - name: tsd-db
-          image: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-db:v1.5a
+          image: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-db
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
                 name: tsd-db-data
             - secretRef:
                 name: tsd-db-secret
+          startupProbe:
+            exec:
+              command: ["/bin/bash", "-c", "pg_isready -h localhost -U ${POSTGRES_USER}"]
+            failureThreshold: 30
+            periodSeconds: 5
           livenessProbe:
             exec:
               command:
@@ -60,7 +65,7 @@ spec:
         name: db-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: longhorn
+        # storageClassName: standard
         resources:
           requests:
             storage: 10Gi
