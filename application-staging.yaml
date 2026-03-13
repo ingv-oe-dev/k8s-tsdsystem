@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tsdsystem-application
+  namespace: argocd
+spec:
+  project: default
+
+  sources:
+  - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
+    targetRevision: main
+    path: manifests/db/overslays/staging
+  - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
+    targetRevision: main
+    path: manifests/tsd/overlays/staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tsdsystem
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    - PrunePropagationPolicy=foreground
+    - PruneLast=true
+    automated:
+      selfHeal: true
+      prune: true

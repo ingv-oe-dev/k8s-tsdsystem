@@ -44,7 +44,6 @@ configMapGenerator:
     - APP_ALLOWED_HOSTS=*
     - ENV=production
 
-
 secretGenerator:
 - name: tsd-secret
   type: Opaque
