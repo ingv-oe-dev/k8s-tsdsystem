@@ -8,11 +8,8 @@ spec:
 
   sources:
   - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
-    targetRevision: main
-    path: manifests/db
-  - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
-    targetRevision: main
-    path: manifests/app
+    targetRevision: sealed-secret
+    path: manifests/db/overlays/production
   destination:
     server: https://kubernetes.default.svc
     namespace: tsdsystem
