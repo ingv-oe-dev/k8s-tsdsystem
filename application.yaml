@@ -8,10 +8,10 @@ spec:
 
   sources:
   - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
-    targetRevision: sealed-secret
+    targetRevision: main
     path: manifests/db/overlays/production
   - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
-    targetRevision: sealed-secret
+    targetRevision: main
     path: manifests/tsd/overlays/production
   destination:
     server: https://kubernetes.default.svc
