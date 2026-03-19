@@ -11,8 +11,8 @@ spec:
         - name: tsd-db
           resources:
             requests:
-              cpu: "500m"
+              cpu: "2"
               memory: "1Gi"
             limits:
-              cpu: "1"
-              memory: "1Gi"
+              cpu: "4"
+              memory: "2Gi"

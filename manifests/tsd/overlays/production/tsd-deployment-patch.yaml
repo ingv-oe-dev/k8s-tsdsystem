@@ -15,8 +15,8 @@ spec:
         - name: tsd-app
           resources:
             requests:
-              cpu: "2"
-              memory: "1024Mi"
+              cpu: "500m"
+              memory: "512Mi"
             limits:
-              cpu: "4"
-              memory: "2048Mi"
+              cpu: "1500m"
+              memory: "1.5Gi"
