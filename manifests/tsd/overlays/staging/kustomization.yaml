@@ -35,7 +35,7 @@ configurations:
   - sealed-secret-config.yaml
 
 configMapGenerator:
-- name: tsd-data
+- name: staging-tsd-data
   namespace: tsdsystem-staging
   behavior: replace
   literals:
