@@ -22,7 +22,7 @@ patches:
 
 images:
   - name: ghcr.io/ingv-oe-dev/tsdsystem/tsdsystem-app
-    newTag: v1.7a
+    newTag: v1.8a
 
 generatorOptions:
   annotations:
