@@ -37,7 +37,7 @@ configurations:
 configMapGenerator:
 - name: staging-tsd-data
   namespace: tsdsystem-staging
-  behavior: replace
+  behavior: create
   literals:
     - DB_HOST=staging-tsdsystem-db-svc
     - DB_PORT=5432
