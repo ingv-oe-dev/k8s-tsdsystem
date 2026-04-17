@@ -9,13 +9,13 @@ spec:
   sources:
   - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
     targetRevision: main
-    path: manifests/db/overslays/staging
+    path: manifests/db/overlays/staging
   - repoURL: https://github.com/ingv-oe-dev/k8s-tsdsystem.git
     targetRevision: main
     path: manifests/tsd/overlays/staging
   destination:
     server: https://kubernetes.default.svc
-    namespace: tsdsystem
+    namespace: tsdsystem-staging
 
   syncPolicy:
     syncOptions:
