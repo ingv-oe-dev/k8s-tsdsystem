@@ -39,7 +39,7 @@ configMapGenerator:
   namespace: tsdsystem-staging
   behavior: create
   literals:
-    - DB_HOST=staging-tsdsystem-db-svc
+    - DB_HOST=tsdsystem-db-svc
     - DB_PORT=5432
     - APP_ALLOWED_HOSTS=*
     - ENV=production
